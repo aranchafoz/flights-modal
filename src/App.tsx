@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import { EditSubscriberFlightsModal } from "./components/EditSubscriberFlightsModal";
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [subscriberFlightsLeft, setSubscriberFlightsLeft] = useState(2);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>Caravelo tech test</p>
+        <button onClick={handleOpenModal}>Edit Flights</button>
       </header>
+      {isModalOpen && (
+        <EditSubscriberFlightsModal flightsLeft={subscriberFlightsLeft} />
+      )}
     </div>
   );
 }
