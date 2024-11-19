@@ -25,9 +25,19 @@ export const EditSubscriberFlightsModal = ({
       <div>
         <span>Flights Left</span>
         <div>
-          <button onClick={handleDecreaseFlightsLeft}>-</button>
+          <button
+            data-testid="decrease-count"
+            onClick={handleDecreaseFlightsLeft}
+          >
+            -
+          </button>
           <span data-testid="flights-left-count">{newFlightsLeft}</span>
-          <button onClick={handleIncreaseFlightsLeft}>+</button>
+          <button
+            data-testid="increase-count"
+            onClick={handleIncreaseFlightsLeft}
+          >
+            +
+          </button>
         </div>
       </div>
       <span>What is the motive?</span>
