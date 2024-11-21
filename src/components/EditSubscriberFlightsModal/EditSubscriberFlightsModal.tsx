@@ -4,9 +4,7 @@ import {
   FlightsLeftCrontrolsWrapper,
   FlightsLeftLabel,
   FlightsLeftWrapper,
-  Selector,
   FormColumns,
-  SelectorWrapper,
 } from "./EditSubscriberFlightsModal.styles";
 import {
   EditQuotaType,
@@ -14,6 +12,7 @@ import {
   editQuotaTypes,
 } from "../../constants/editQuotaReasons";
 import { Modal } from "../Modal";
+import { Selector, SelectorOption } from "../Selector";
 
 const MIN_FLIGTHS_LEFT = 0;
 const MAX_FLIGHTS_LEFT = 3;
@@ -38,6 +37,14 @@ export const EditSubscriberFlightsModal = ({
     return null;
   }, [newFlightsLeft, flightsLeft]);
 
+  const motiveOptions = useMemo<SelectorOption[]>(() => {
+    if (!editQuotaType) return [];
+    return QUOTA_REASONS_FOR_TYPE[editQuotaType].map(
+      (reason) => ({ value: reason }),
+      []
+    );
+  }, [editQuotaType]);
+
   useEffect(() => {
     if (!editQuotaType) {
       setSelectedMotive("");
@@ -58,8 +65,8 @@ export const EditSubscriberFlightsModal = ({
     setNewFlightsLeft(newFlightsLeft + 1);
   };
 
-  const handleMotiveChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedMotive(e.target.value);
+  const handleMotiveChange = (value: string | number) => {
+    setSelectedMotive(value.toString());
   };
 
   const handleSubmit = () => {
@@ -96,23 +103,13 @@ export const EditSubscriberFlightsModal = ({
             </ControlButton>
           </FlightsLeftCrontrolsWrapper>
         </FlightsLeftWrapper>
-        <SelectorWrapper>
-          <Selector
-            data-testid="motive-selector"
-            value={selectedMotive}
-            onChange={handleMotiveChange}
-          >
-            <option value={""} disabled>
-              What is the motive?
-            </option>
-            {editQuotaType &&
-              QUOTA_REASONS_FOR_TYPE[editQuotaType].map((reason, key) => (
-                <option key={key} value={reason}>
-                  {reason}
-                </option>
-              ))}
-          </Selector>
-        </SelectorWrapper>
+        <Selector
+          onChange={handleMotiveChange}
+          placeholder="What is the motive?"
+          testId="motive-selector"
+          value={selectedMotive}
+          options={motiveOptions}
+        />
       </FormColumns>
     </Modal>
   );
