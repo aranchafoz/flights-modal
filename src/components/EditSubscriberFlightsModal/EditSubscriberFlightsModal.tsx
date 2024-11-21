@@ -11,6 +11,9 @@ import {
   ModalHeader,
   ModalTitle,
   ModalWrapper,
+  Selector,
+  FormColumns,
+  SelectorWrapper,
 } from "./EditSubscriberFlightsModal.styles";
 import {
   EditQuotaType,
@@ -82,42 +85,45 @@ export const EditSubscriberFlightsModal = ({
             Add or remove flights from the subscriber
           </ModalDescription>
         </ModalHeader>
-        <FlightsLeftWrapper>
-          <FlightsLeftLabel>Flights Left</FlightsLeftLabel>
-          <FlightsLeftCrontrolsWrapper>
-            <ControlButton
-              data-testid="decrease-count"
-              onClick={handleDecreaseFlightsLeft}
-              disabled={!canDecreaseQuota}
+        <FormColumns>
+          <FlightsLeftWrapper>
+            <FlightsLeftLabel>Flights Left</FlightsLeftLabel>
+            <FlightsLeftCrontrolsWrapper>
+              <ControlButton
+                data-testid="decrease-count"
+                onClick={handleDecreaseFlightsLeft}
+                disabled={!canDecreaseQuota}
+              >
+                -
+              </ControlButton>
+              <span data-testid="flights-left-count">{newFlightsLeft}</span>
+              <ControlButton
+                data-testid="increase-count"
+                onClick={handleIncreaseFlightsLeft}
+                disabled={!canIncreaseQuota}
+              >
+                +
+              </ControlButton>
+            </FlightsLeftCrontrolsWrapper>
+          </FlightsLeftWrapper>
+          <SelectorWrapper>
+            <Selector
+              data-testid="motive-selector"
+              value={selectedMotive}
+              onChange={handleMotiveChange}
             >
-              -
-            </ControlButton>
-            <span data-testid="flights-left-count">{newFlightsLeft}</span>
-            <ControlButton
-              data-testid="increase-count"
-              onClick={handleIncreaseFlightsLeft}
-              disabled={!canIncreaseQuota}
-            >
-              +
-            </ControlButton>
-          </FlightsLeftCrontrolsWrapper>
-        </FlightsLeftWrapper>
-        <label>
-          <select
-            data-testid="motive-selector"
-            disabled={!editQuotaType} // Should be disabled or just display 0 options?
-            value={selectedMotive}
-            onChange={handleMotiveChange}
-          >
-            <option value={""}>What is the motive?</option>
-            {editQuotaType &&
-              QUOTA_REASONS_FOR_TYPE[editQuotaType].map((reason, key) => (
-                <option key={key} value={reason}>
-                  {reason}
-                </option>
-              ))}
-          </select>
-        </label>
+              <option value={""} disabled>
+                What is the motive?
+              </option>
+              {editQuotaType &&
+                QUOTA_REASONS_FOR_TYPE[editQuotaType].map((reason, key) => (
+                  <option key={key} value={reason}>
+                    {reason}
+                  </option>
+                ))}
+            </Selector>
+          </SelectorWrapper>
+        </FormColumns>
         <div>
           <button
             data-testid="save-changes-button"
