@@ -14,7 +14,6 @@ import {
   Selector,
   FormColumns,
   SelectorWrapper,
-  SubmitButton,
   ModalButtonWrapper,
 } from "./EditSubscriberFlightsModal.styles";
 import {
@@ -23,6 +22,7 @@ import {
   editQuotaTypes,
 } from "../../constants/editQuotaReasons";
 import icons from "../../icons";
+import { Button } from "../Button";
 
 const MIN_FLIGTHS_LEFT = 0;
 const MAX_FLIGHTS_LEFT = 3;
@@ -127,13 +127,13 @@ export const EditSubscriberFlightsModal = ({
           </SelectorWrapper>
         </FormColumns>
         <ModalButtonWrapper>
-          <SubmitButton
-            data-testid="save-changes-button"
+          <Button
+            testId="save-changes-button"
             disabled={!canSaveChanges}
             onClick={handleSubmit}
           >
             Save changes
-          </SubmitButton>
+          </Button>
         </ModalButtonWrapper>
       </ModalContent>
     </ModalWrapper>
