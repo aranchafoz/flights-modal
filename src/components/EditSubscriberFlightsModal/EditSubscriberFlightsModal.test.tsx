@@ -26,7 +26,7 @@ const getDecreaseButton = () => screen.getByTestId("decrease-count");
 const getMotiveSelector = () => screen.getByTestId("motive-selector");
 const getMotiveOptionElement = (value: string) =>
   screen.getByText(value) as HTMLOptionElement;
-const getSaveChangesButton = () => screen.getByTestId("save-changes-button");
+const getSaveChangesButton = () => screen.getByTestId("modal-submit-button");
 const getCloseIcon = () => screen.getByTestId("modal-close");
 
 describe("EditSubscriberFlightsModal component", () => {

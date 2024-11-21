@@ -1,28 +1,19 @@
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
-  CloseIcon,
   ControlButton,
   FlightsLeftCrontrolsWrapper,
   FlightsLeftLabel,
   FlightsLeftWrapper,
-  ModalCloseButton,
-  ModalContent,
-  ModalDescription,
-  ModalHeader,
-  ModalTitle,
-  ModalWrapper,
   Selector,
   FormColumns,
   SelectorWrapper,
-  ModalButtonWrapper,
 } from "./EditSubscriberFlightsModal.styles";
 import {
   EditQuotaType,
   QUOTA_REASONS_FOR_TYPE,
   editQuotaTypes,
 } from "../../constants/editQuotaReasons";
-import icons from "../../icons";
-import { Button } from "../Button";
+import { Modal } from "../Modal";
 
 const MIN_FLIGTHS_LEFT = 0;
 const MAX_FLIGHTS_LEFT = 3;
@@ -76,66 +67,53 @@ export const EditSubscriberFlightsModal = ({
   };
 
   return (
-    <ModalWrapper>
-      <ModalContent>
-        <ModalCloseButton data-testid="modal-close" onClick={onClose}>
-          <CloseIcon src={icons.close} alt="Close modal" />
-        </ModalCloseButton>
-        <ModalHeader>
-          <ModalTitle>Edit Flights</ModalTitle>
-          <ModalDescription>
-            Add or remove flights from the subscriber
-          </ModalDescription>
-        </ModalHeader>
-        <FormColumns>
-          <FlightsLeftWrapper>
-            <FlightsLeftLabel>Flights Left</FlightsLeftLabel>
-            <FlightsLeftCrontrolsWrapper>
-              <ControlButton
-                data-testid="decrease-count"
-                onClick={handleDecreaseFlightsLeft}
-                disabled={!canDecreaseQuota}
-              >
-                -
-              </ControlButton>
-              <span data-testid="flights-left-count">{newFlightsLeft}</span>
-              <ControlButton
-                data-testid="increase-count"
-                onClick={handleIncreaseFlightsLeft}
-                disabled={!canIncreaseQuota}
-              >
-                +
-              </ControlButton>
-            </FlightsLeftCrontrolsWrapper>
-          </FlightsLeftWrapper>
-          <SelectorWrapper>
-            <Selector
-              data-testid="motive-selector"
-              value={selectedMotive}
-              onChange={handleMotiveChange}
+    <Modal
+      title="Edit Flights"
+      description="Add or remove flights from the subscriber"
+      submitLabel="Save changes"
+      submitDisabled={!canSaveChanges}
+      onSubmit={handleSubmit}
+      onClose={onClose}
+    >
+      <FormColumns>
+        <FlightsLeftWrapper>
+          <FlightsLeftLabel>Flights Left</FlightsLeftLabel>
+          <FlightsLeftCrontrolsWrapper>
+            <ControlButton
+              data-testid="decrease-count"
+              onClick={handleDecreaseFlightsLeft}
+              disabled={!canDecreaseQuota}
             >
-              <option value={""} disabled>
-                What is the motive?
-              </option>
-              {editQuotaType &&
-                QUOTA_REASONS_FOR_TYPE[editQuotaType].map((reason, key) => (
-                  <option key={key} value={reason}>
-                    {reason}
-                  </option>
-                ))}
-            </Selector>
-          </SelectorWrapper>
-        </FormColumns>
-        <ModalButtonWrapper>
-          <Button
-            testId="save-changes-button"
-            disabled={!canSaveChanges}
-            onClick={handleSubmit}
+              -
+            </ControlButton>
+            <span data-testid="flights-left-count">{newFlightsLeft}</span>
+            <ControlButton
+              data-testid="increase-count"
+              onClick={handleIncreaseFlightsLeft}
+              disabled={!canIncreaseQuota}
+            >
+              +
+            </ControlButton>
+          </FlightsLeftCrontrolsWrapper>
+        </FlightsLeftWrapper>
+        <SelectorWrapper>
+          <Selector
+            data-testid="motive-selector"
+            value={selectedMotive}
+            onChange={handleMotiveChange}
           >
-            Save changes
-          </Button>
-        </ModalButtonWrapper>
-      </ModalContent>
-    </ModalWrapper>
+            <option value={""} disabled>
+              What is the motive?
+            </option>
+            {editQuotaType &&
+              QUOTA_REASONS_FOR_TYPE[editQuotaType].map((reason, key) => (
+                <option key={key} value={reason}>
+                  {reason}
+                </option>
+              ))}
+          </Selector>
+        </SelectorWrapper>
+      </FormColumns>
+    </Modal>
   );
 };
