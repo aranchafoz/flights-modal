@@ -105,6 +105,7 @@ export const FormColumns = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 32px;
+  align-items: center;
 `;
 
 export const Selector = styled.select`
@@ -158,5 +159,36 @@ export const SelectorWrapper = styled.div`
     background-color: #1f2228;
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
     grid-area: select;
+  }
+`;
+
+export const ModalButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const SubmitButton = styled.button`
+  // reset
+  border: 0;
+
+  // custom
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #2689ef;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #1465ca;
+  }
+
+  &:disabled {
+    background-color: #f6f6f6;
+    color: #606c78;
+    cursor: not-allowed;
   }
 `;

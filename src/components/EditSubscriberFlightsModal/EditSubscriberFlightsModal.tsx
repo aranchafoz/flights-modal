@@ -14,6 +14,8 @@ import {
   Selector,
   FormColumns,
   SelectorWrapper,
+  SubmitButton,
+  ModalButtonWrapper,
 } from "./EditSubscriberFlightsModal.styles";
 import {
   EditQuotaType,
@@ -124,15 +126,15 @@ export const EditSubscriberFlightsModal = ({
             </Selector>
           </SelectorWrapper>
         </FormColumns>
-        <div>
-          <button
+        <ModalButtonWrapper>
+          <SubmitButton
             data-testid="save-changes-button"
             disabled={!canSaveChanges}
             onClick={handleSubmit}
           >
             Save changes
-          </button>
-        </div>
+          </SubmitButton>
+        </ModalButtonWrapper>
       </ModalContent>
     </ModalWrapper>
   );
