@@ -10,6 +10,10 @@ function App() {
     setIsModalOpen(true);
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,7 +21,10 @@ function App() {
         <button onClick={handleOpenModal}>Edit Flights</button>
       </header>
       {isModalOpen && (
-        <EditSubscriberFlightsModal flightsLeft={subscriberFlightsLeft} />
+        <EditSubscriberFlightsModal
+          flightsLeft={subscriberFlightsLeft}
+          onClose={handleCloseModal}
+        />
       )}
     </div>
   );
