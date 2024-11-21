@@ -1,7 +1,8 @@
-import { useState } from "react";
-import "./App.css";
+import { useEffect, useState } from "react";
 import { EditSubscriberFlightsModal } from "./components/EditSubscriberFlightsModal";
 import { Button } from "./components/Button";
+import { updateSubscriberFlights } from "./api/updateSubscriberFlights";
+import { AppWrapper, AppContent, SuccessMessage } from "./App.styles";
 
 const SUBSCRIBER_FLIGHTS_LEFT = 2;
 
@@ -10,6 +11,20 @@ function App() {
   const [subscriberFlightsLeft, setSubscriberFlightsLeft] = useState(
     SUBSCRIBER_FLIGHTS_LEFT
   );
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: string | number | NodeJS.Timeout | undefined = undefined;
+
+    if (success) {
+      timeoutId = setTimeout(() => {
+        setSuccess(false);
+      }, 6000);
+    }
+
+    // Cleanup function to clear the timeout if the component unmounts
+    return () => clearTimeout(timeoutId);
+  }, [success]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -19,20 +34,24 @@ function App() {
     setIsModalOpen(false);
   };
 
-  const handleSubmit = (newFlightsLeft: number, motive: string) => {
+  const handleSubmit = async (newFlightsLeft: number, motive: string) => {
+    await updateSubscriberFlights({ flightsLeft: newFlightsLeft, motive });
+
+    setSuccess(true);
     setSubscriberFlightsLeft(newFlightsLeft);
     setIsModalOpen(false);
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <AppWrapper>
+      <AppContent>
         <p>Caravelo tech test</p>
         <h3>Current subscriber flights left: {subscriberFlightsLeft}</h3>
+
         <Button variant="secondary" onClick={handleOpenModal}>
           EDIT FLIGHTS
         </Button>
-      </header>
+      </AppContent>
       {isModalOpen && (
         <EditSubscriberFlightsModal
           flightsLeft={subscriberFlightsLeft}
@@ -40,7 +59,10 @@ function App() {
           onSubmit={handleSubmit}
         />
       )}
-    </div>
+      {success && (
+        <SuccessMessage>Changes have been successfully saved!</SuccessMessage>
+      )}
+    </AppWrapper>
   );
 }
 
