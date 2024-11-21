@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# Edit Subscriber Flights Modal - Caravelo tech challenge
+An app for editing the current subscriber flights left, by both increasing and decreasing them providing a motive.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Preview
+| Main page | Modal |
+|---|---|
+| <img width="655" alt="Captura de Pantalla 2024-11-22 a las 0 35 45" src="https://github.com/user-attachments/assets/651d1c89-9a0d-47c1-8bb4-874f84ef1c7e"> | <img width="738" alt="Captura de Pantalla 2024-11-21 a las 21 22 11" src="https://github.com/user-attachments/assets/ab66060c-9786-4ea9-b69c-c853b61e185d"> |
+
 
 ## Available Scripts
 
@@ -18,29 +23,3 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
