@@ -15,7 +15,11 @@ export const REMOVE_QUOTA_REASONS: QuotaReasons = [
   "Other",
 ];
 
-export type EditQuotaType = "increase" | "decrease";
+export const editQuotaTypes: { [key: string]: string } = {
+  increase: "increase",
+  decrease: "decrease",
+};
+export type EditQuotaType = keyof typeof editQuotaTypes;
 
 export const QUOTA_REASONS_FOR_TYPE: { [key in EditQuotaType]: QuotaReasons } =
   {

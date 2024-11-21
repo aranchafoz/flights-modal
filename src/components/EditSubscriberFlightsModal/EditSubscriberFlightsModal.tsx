@@ -3,6 +3,7 @@ import { ModalWrapper } from "./EditSubscriberFlightsModal.styles";
 import {
   EditQuotaType,
   QUOTA_REASONS_FOR_TYPE,
+  editQuotaTypes,
 } from "../../constants/editQuotaReasons";
 
 const MIN_FLIGTHS_LEFT = 0;
@@ -10,17 +11,20 @@ const MAX_FLIGHTS_LEFT = 3;
 
 interface EditSubscriberFlightsModalProps {
   flightsLeft?: number;
+  onClose?: VoidFunction;
+  onSubmit?: (flightsLeft: number, motive: string) => void;
 }
 
 export const EditSubscriberFlightsModal = ({
   flightsLeft = 0,
+  onSubmit,
 }: EditSubscriberFlightsModalProps) => {
   const [newFlightsLeft, setNewFlightsLeft] = useState(flightsLeft);
   const [selectedMotive, setSelectedMotive] = useState<string>("");
 
   const editQuotaType = useMemo<EditQuotaType | null>(() => {
-    if (newFlightsLeft < flightsLeft) return "decrease";
-    if (newFlightsLeft > flightsLeft) return "increase";
+    if (newFlightsLeft < flightsLeft) return editQuotaTypes.decrease;
+    if (newFlightsLeft > flightsLeft) return editQuotaTypes.increase;
     return null;
   }, [newFlightsLeft, flightsLeft]);
 
@@ -32,6 +36,7 @@ export const EditSubscriberFlightsModal = ({
 
   const canDecreaseQuota = newFlightsLeft > MIN_FLIGTHS_LEFT;
   const canIncreaseQuota = newFlightsLeft < MAX_FLIGHTS_LEFT;
+  const canSaveChanges = editQuotaType && selectedMotive;
 
   const handleDecreaseFlightsLeft = () => {
     if (!canDecreaseQuota) return;
@@ -45,6 +50,10 @@ export const EditSubscriberFlightsModal = ({
 
   const handleMotiveChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedMotive(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    onSubmit?.(newFlightsLeft, selectedMotive);
   };
 
   return (
@@ -73,8 +82,8 @@ export const EditSubscriberFlightsModal = ({
       </div>
       <label>
         <select
-          name="motive-selector"
-          disabled={!editQuotaType}
+          data-testid="motive-selector"
+          disabled={!editQuotaType} // Should be disabled or just display 0 options?
           value={selectedMotive}
           onChange={handleMotiveChange}
         >
@@ -88,7 +97,13 @@ export const EditSubscriberFlightsModal = ({
         </select>
       </label>
       <div>
-        <button>Save changes</button>
+        <button
+          data-testid="save-changes-button"
+          disabled={!canSaveChanges}
+          onClick={handleSubmit}
+        >
+          Save changes
+        </button>
       </div>
     </ModalWrapper>
   );
